@@ -12,7 +12,7 @@ import tensorflow as tf
 def plot_function(iteration, l_vals, u_vals):
   # This function can be used to get results after every iteration.
   return
-num_of_iterations = 1000
+num_of_iterations = 5000
 file_identifier = open("../datasets/abalone.data", "r")
 line = file_identifier.readline()
 dataset = []
@@ -91,9 +91,9 @@ class abalone(explain):
     sampled_indices = range(0, int(0.8 * dataset.shape[0]))
     f_values_points = f_values_dataset[sampled_indices]
     return exp_dataset, f_values_points
-runs = 2
-sampled_points_num = 3
-size_GExp = 2
+runs = 5
+sampled_points_num = 50
+size_GExp = 10
 coverage_vals = np.zeros((runs, size_GExp))
 precision_vals = np.zeros((runs, size_GExp))
 coverage_vals_random = np.zeros((runs, size_GExp))
