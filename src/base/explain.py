@@ -48,13 +48,14 @@ class explain(obj_functions):
         self.max_cov_above_prec_threshold = analytic_cov_value
       if plot_function != None:
         self.plot_function(iteration, self.l_vec_values, self.u_vec_values)
-  def greedy_select(self, remove_vars, valid_vars = None):
+  def greedy_select(self, vars_count_exp, valid_vars = None):
     vars_removed = []
     if valid_vars == None:
       if self.valid_vars == None:
         self.valid_vars = [True] * self.dimension
     else:
       self.valid_vars = copy.deepcopy(valid_vars)
+    remove_vars = np.sum(self.valid_vars) - vars_count_exp
     sampled_points, f_values_sampled_points = self.sampling(self.sampled_points_num)
     temp_l_vec_values = np.copy(self.l_vec_values)
     temp_u_vec_values = np.copy(self.u_vec_values)
