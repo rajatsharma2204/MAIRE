@@ -166,19 +166,14 @@ while run < runs:
     for j in range(test_dataset.shape[0]):
       cov_add = False
       prec_add = False
-      min_cov = 1.1
+      decisions = []
       for k in range(len(points_selected)):
         if np.all(np.logical_and(np.greater(test_dataset[j, :], l_values_list[points_selected[k], :]), np.less(test_dataset[j, :], u_values_list[points_selected[k], :]))):
           cov_add = True
-          if min_cov > np.sum(in_range_all_points[points_selected[k], :]) * 1.0 / int(0.8 * dataset.shape[0]):
-            min_cov = np.sum(in_range_all_points[points_selected[k], :]) * 1.0 / int(0.8 * dataset.shape[0])
-            if labels_list[points_selected[k]] == predicted_labels[j]:
-              prec_add = True
-            else:
-              prec_add = False
+          decisions.append(labels_list[points_selected[k]] == predicted_labels[j])
       if cov_add:
         coverage += 1
-        if prec_add:
+        if np.mean(decisions) > 0.5:
           precision += 1
     if coverage != 0.0:
       precision = precision * 1.0 / coverage
